@@ -6,7 +6,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, Timestamp } f
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDUVdOsNn4WlOolYRfxLzCs-8ZFd5o00Bo",
+    apiKey: "AIzaSyDbiAr1nQIFNfrAqmXxq_FAtVBzplcNir0",
     authDomain: "cerebroexterno-5aad6.firebaseapp.com",
     projectId: "cerebroexterno-5aad6",
     storageBucket: "cerebroexterno-5aad6.firebasestorage.app",
