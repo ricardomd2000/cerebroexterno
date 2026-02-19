@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerebro Externo & Irrigación Arcade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Cerebro Externo & Irrigación Arcade</h1>
+
+    <!-- Menu Screen -->
+    <div id="menu-screen" class="card">
+      <h2>¡Bienvenido al Desafío!</h2>
+      <p>Pon a prueba tus conocimientos sobre la anatomía del cerebro externo y su irrigación.</p>
+      <p>3 Niveles de dificultad:</p>
+      <ul style="text-align: left; list-style: none;">
+        <li>1. Identificación de Estructuras</li>
+        <li>2. Funciones Corticales</li>
+        <li>3. Territorios Vasculares</li>
+      </ul>
+      <button id="start-btn">INSERT COIN TO START</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="game-container hidden">
+      <h2 id="level-title">Nivel 1</h2>
+      <p id="level-description">Descripción del nivel</p>
+      
+      <div class="stats-bar">
+        <span id="score-display">Score: 0</span>
+        <span id="question-counter">Question: 1 / 10</span>
+      </div>
+
+      <div class="card">
+        <div class="image-container">
+          <img id="question-image" src="" alt="Identificar estructura">
+        </div>
+        <div id="options-container" class="options-grid">
+          <!-- Options will be generated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="card hidden">
+      <h2>GAME OVER</h2>
+      <h3>Final Score: <span id="final-score">0</span></h3>
+      <p id="final-message">Mensaje final</p>
+      <button id="restart-btn">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
