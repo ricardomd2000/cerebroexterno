@@ -1,4 +1,4 @@
-import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc } from "./firebase-config.js";
+import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, signInWithPopup, googleProvider, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc } from "./firebase-config.js";
 
 // Game State
 let currentState = {
@@ -28,6 +28,7 @@ const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const performLoginBtn = document.getElementById('perform-login-btn');
 const performRegisterBtn = document.getElementById('perform-register-btn');
+const googleLoginBtn = document.getElementById('google-login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const authError = document.getElementById('auth-error');
 const userNameDisplay = document.getElementById('user-name');
@@ -58,6 +59,7 @@ showLoginBtn.addEventListener('click', () => toggleAuthForm('login'));
 showRegisterBtn.addEventListener('click', () => toggleAuthForm('register'));
 performLoginBtn.addEventListener('click', handleLogin);
 performRegisterBtn.addEventListener('click', handleRegister);
+googleLoginBtn.addEventListener('click', handleGoogleLogin);
 logoutBtn.addEventListener('click', handleLogout);
 
 function toggleAuthForm(mode) {
@@ -88,6 +90,22 @@ onAuthStateChanged(auth, async (user) => {
         startBtn.style.opacity = "1";
         startBtn.style.cursor = "pointer";
 
+        // Ensure user doc exists (for Google Login users)
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) {
+            await setDoc(userRef, {
+                name: user.displayName,
+                email: user.email,
+                lastLogin: Timestamp.now(),
+                createdAt: Timestamp.now()
+            });
+        } else {
+            await updateDoc(userRef, {
+                lastLogin: Timestamp.now()
+            });
+        }
+
     } else {
         currentUser = null;
         authForms.style.display = 'block';
@@ -98,6 +116,16 @@ onAuthStateChanged(auth, async (user) => {
         startBtn.style.cursor = "not-allowed";
     }
 });
+
+async function handleGoogleLogin() {
+    authError.textContent = '';
+    try {
+        await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+        console.error(error);
+        authError.textContent = 'Error con Google: ' + error.message;
+    }
+}
 
 async function handleLogin() {
     const email = loginEmail.value;
@@ -134,15 +162,8 @@ async function handleRegister() {
         // Update Profile Name
         await updateProfile(user, { displayName: name });
 
-        // Create User Doc in Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            name: name,
-            email: email,
-            lastLogin: Timestamp.now(),
-            createdAt: Timestamp.now()
-        });
+        // User doc created in onAuthStateChanged
 
-        // Auth state listener handles UI update
     } catch (error) {
         console.error(error);
         if (error.code === 'auth/email-already-in-use') {
