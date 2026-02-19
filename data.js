@@ -1,5 +1,5 @@
 
-const GAME_LEVELS = [
+window.GAME_LEVELS = [
     {
         id: 1,
         title: "Nivel 1: Identificación de Estructuras",
