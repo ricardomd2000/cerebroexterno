@@ -9,13 +9,13 @@ window.GAME_LEVELS = [
                 id: "l1_1",
                 image: "assets/arteria_cerebelosa_anteroinferior.jpg",
                 correctAnswer: "Arteria Cerebelosa Anteroinferior (AICA)",
-                distractors: ["Arteria Cerebelosa Posteroinferior (PICA)", "Arteria Cerebelosa Superior", "Arteria Basilar"]
+                distractors: ["Arteria Cerebelosa Posteroinferior", "Arteria Cerebelosa Superior", "Arteria Basilar"]
             },
             {
                 id: "l1_2",
                 image: "assets/arteria_cerebelosa_posteroinferior.jpg",
                 correctAnswer: "Arteria Cerebelosa Posteroinferior (PICA)",
-                distractors: ["Arteria Cerebelosa Anteroinferior (AICA)", "Arteria Vertebral", "Arteria Espinal Anterior"]
+                distractors: ["Arteria Cerebelosa Anteroinferior", "Arteria Vertebral", "Arteria Espinal Anterior"]
             },
             {
                 id: "l1_3",
