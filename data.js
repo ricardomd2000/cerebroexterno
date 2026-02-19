@@ -164,7 +164,7 @@ window.GAME_LEVELS = [
             {
                 id: "l1_27",
                 image: "assets/porcion triangular.jpg",
-                correctAnswer: "Porción Triangular (Giro Frontal Inferior)",
+                correctAnswer: "Porción Triangular",
                 distractors: ["Porción Opercular", "Porción Orbitaria", "Giro Precentral"]
             },
             {
@@ -195,25 +195,25 @@ window.GAME_LEVELS = [
             {
                 id: "l2_1",
                 image: "assets/giro precentral.jpg",
-                correctAnswer: "Control Motor Voluntario (Corteza Motora Primaria)",
+                correctAnswer: "Control Motor Voluntario ",
                 distractors: ["Sensibilidad Somática", "Planificación Motora", "Procesamiento Visual"]
             },
             {
                 id: "l2_2",
                 image: "assets/giro postcentral.jpg",
-                correctAnswer: "Procesamiento Somatosensorial (Tacto, Dolor, Temperatura)",
+                correctAnswer: "Procesamiento Somatosensorial ",
                 distractors: ["Control Motor Fino", "Audición y Lenguaje", "Visión Periférica"]
             },
             {
                 id: "l2_3",
                 image: "assets/giro temporal superior.jpg",
-                correctAnswer: "Audición y Comprensión del Lenguaje (Wernicke)",
+                correctAnswer: "Audición y Comprensión del Lenguaje ",
                 distractors: ["Producción del Lenguaje", "Reconocimiento Facial", "Memoria Episódica"]
             },
             {
                 id: "l2_4",
                 image: "assets/porcion triangular.jpg",
-                correctAnswer: "Producción del Lenguaje (Área de Broca)",
+                correctAnswer: "Producción del Lenguaje ",
                 distractors: ["Comprensión del Lenguaje", "Control Motor de la Mano", "Toma de Decisiones"]
             },
             {
@@ -231,7 +231,7 @@ window.GAME_LEVELS = [
             {
                 id: "l2_7",
                 image: "assets/hipocampo.jpg",
-                correctAnswer: "Formación de Nuevos Recuerdos (Memoria Episódica)",
+                correctAnswer: "Formación de Nuevos Recuerdos ",
                 distractors: ["Regulación Emocional", "Control Motor Fino", "Procesamiento Olfativo"]
             },
             {
@@ -262,25 +262,25 @@ window.GAME_LEVELS = [
             {
                 id: "l3_1",
                 image: "assets/arteria_cerebral_media.jpg",
-                correctAnswer: "Cara lateral de hemisferios (Motor/Sensitivo cabeza-brazo, Lenguaje)",
+                correctAnswer: "Cara lateral de hemisferios",
                 distractors: ["Cara medial de hemisferios", "Lóbulo occipital", "Cerebelo y troncoencefalo"]
             },
             {
                 id: "l3_2",
                 image: "assets/arteria_cerebral_anterio.jpg",
-                correctAnswer: "Cara medial de hemisferios (Motor/Sensitivo pierna)",
+                correctAnswer: "Cara medial de hemisferios",
                 distractors: ["Cara lateral de hemisferios", "Lóbulo temporal inferior", "Ganglios basales exclusivamente"]
             },
             {
                 id: "l3_3",
                 image: "assets/arteria_cerebral_posterior.jpg",
-                correctAnswer: "Lóbulo occipital (Visión) y temporal inferior",
+                correctAnswer: "Lóbulo occipital y temporal inferior",
                 distractors: ["Lóbulo frontal", "Lóbulo parietal", "Área de Broca"]
             },
             {
                 id: "l3_4",
                 image: "assets/arteria_cerebelosa_posteroinferior.jpg",
-                correctAnswer: "Cerebelo posteroinferior y bulbo lateral (S. Wallenberg)",
+                correctAnswer: "Cerebelo posteroinferior y bulbo lateral",
                 distractors: ["Puente y mesencéfalo", "Corteza visual", "Lóbulo frontal medial"]
             },
             {
@@ -292,7 +292,7 @@ window.GAME_LEVELS = [
             {
                 id: "l3_6",
                 image: "assets/espinal_anterior.jpg",
-                correctAnswer: "2/3 anteriores de médula espinal (Motor/Dolor-Temp)",
+                correctAnswer: "2/3 anteriores de médula espinal",
                 distractors: ["1/3 posterior de médula", "Cerebelo", "Tronco encefálico dorsal"]
             },
             {
