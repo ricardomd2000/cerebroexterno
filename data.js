@@ -207,7 +207,7 @@ window.GAME_LEVELS = [
             {
                 id: "l2_3",
                 image: "assets/giro temporal superior.jpg",
-                correctAnswer: "Audición y Comprensión del Lenguaje ",
+                correctAnswer: "Audición",
                 distractors: ["Producción del Lenguaje", "Reconocimiento Facial", "Memoria Episódica"]
             },
             {
@@ -219,37 +219,37 @@ window.GAME_LEVELS = [
             {
                 id: "l2_5",
                 image: "assets/surco calcarina.jpg",
-                correctAnswer: "Procesamiento Visual Primario",
+                correctAnswer: "Procesamiento Visual",
                 distractors: ["Reconocimiento de Objetos", "Percepción Espacial", "Memoria Visual"]
             },
             {
                 id: "l2_6",
                 image: "assets/giro cingulo.jpg",
-                correctAnswer: "Procesamiento Emocional y Regulación de la Atención",
+                correctAnswer: "Procesamiento Emocional",
                 distractors: ["Control Motor Visceral", "Procesamiento Auditivo", "Reconocimiento de Rostros"]
             },
             {
                 id: "l2_7",
                 image: "assets/hipocampo.jpg",
-                correctAnswer: "Formación de Nuevos Recuerdos ",
+                correctAnswer: "Nuevos Recuerdos ",
                 distractors: ["Regulación Emocional", "Control Motor Fino", "Procesamiento Olfativo"]
             },
             {
                 id: "l2_8",
                 image: "assets/precuña.jpg",
-                correctAnswer: "Autoconciencia, Imaginasción Visual y Memoria Episódica",
+                correctAnswer: "Autoconciencia",
                 distractors: ["Procesamiento Visual Primario", "Control Motor de MIembro Inferior", "Audición"]
             },
             {
                 id: "l2_9",
                 image: "assets/giro recto.jpg",
-                correctAnswer: "Toma de decisiones, personalidad y conducta social",
+                correctAnswer: "personalidad",
                 distractors: ["Procesamiento visual", "Control motor fino", "Audición"]
             },
             {
                 id: "l2_10",
                 image: "assets/giro temporal inferior.jpg",
-                correctAnswer: "Reconocimiento visual de objetos y rostros",
+                correctAnswer: "Reconocimiento visual de objetos",
                 distractors: ["Audición primaria", "Control motor", "Sensibilidad táctil"]
             }
         ]
