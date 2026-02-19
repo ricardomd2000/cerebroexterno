@@ -1,4 +1,4 @@
-import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, signInWithPopup, googleProvider, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc, addDoc, collection, getDocs, limit, orderBy, query } from "./firebase-config.js";
+import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, signInWithPopup, googleProvider, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc, addDoc, collection, getDocs, limit, orderBy, query, deleteField } from "./firebase-config.js";
 
 // Game State
 let currentState = {
@@ -210,16 +210,54 @@ function handleLogout() {
 }
 
 // Game Logic
-function startGame() {
+async function startGame() { // Made async to use await
     if (!currentUser) {
         alert("Debes iniciar sesión para jugar.");
         return;
     }
+
+    // Check for saved session
+    const userRef = doc(db, "users", currentUser.uid);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists() && userSnap.data().currentSession) {
+        const session = userSnap.data().currentSession;
+        if (confirm(`Tienes una partida guardada en el Nivel ${session.level + 1}, Pregunta ${session.questionIndex + 1}. \nPuntaje: ${session.score}. \n\n¿Quieres continuar?`)) {
+            // Resume Game
+            currentState.gameState = 'PLAYING';
+            currentState.currentLevelIndex = session.level;
+            currentState.score = session.score;
+            currentState.currentQuestionIndex = session.questionIndex;
+            currentState.incorrectAnswers = session.incorrectAnswers || [];
+
+            // Restore time accurately
+            // We can't perfectly restore the exact timer second without more complex logic,
+            // but we can ensure the TOTAL duration at the end is correct by keeping the originalStartTime.
+            // For the UI timer, we'll just continue counting from where they left off (or approximated).
+            currentState.visualStartTime = Date.now(); // Reset visual timer for current question/session
+
+            // Store the ORIGINAL start time in a separate property to calculate total duration at the end
+            currentState.originalStartTime = session.startTime;
+
+            startTimer();
+            updateScreen();
+            startLevel(currentState.currentLevelIndex); // Load the level
+            loadQuestion(); // Load the specific question within the level
+            return; // Exit after resuming
+        } else {
+            // Discard saved session
+            await updateDoc(userRef, {
+                currentSession: deleteField()
+            });
+        }
+    }
+
+    // If no session to resume or user declined, start a new game
     currentState.gameState = 'PLAYING';
     currentState.currentLevelIndex = 0;
     currentState.score = 0;
     currentState.incorrectAnswers = [];
-    currentState.startTime = Date.now();
+    currentState.startTime = Date.now(); // For visual timer
+    currentState.originalStartTime = Timestamp.now(); // For total game duration
     startTimer();
     startLevel(0);
     updateScreen();
@@ -295,6 +333,11 @@ function handleAnswer(selectedOption, correctAnswer, btnElement) {
 
     scoreDisplay.textContent = `Score: ${currentState.score}`;
 
+    // Auto-Save Progress
+    if (currentUser) {
+        saveProgress();
+    }
+
     setTimeout(() => {
         nextQuestion();
     }, 1500);
@@ -357,16 +400,24 @@ async function gameOver() {
     if (currentUser) {
         const userRef = doc(db, "users", currentUser.uid);
         try {
+            // Calculate total duration using originalStartTime if available
+            const endTime = Timestamp.now();
+            let finalDuration = durationSeconds;
+            if (currentState.originalStartTime) {
+                finalDuration = endTime.seconds - currentState.originalStartTime.seconds;
+            }
+
             // 1. Update User History
             await updateDoc(userRef, {
                 gameHistory: arrayUnion({
                     score: currentState.score,
-                    date: Timestamp.now(),
+                    date: endTime,
                     completed: true,
-                    durationSeconds: durationSeconds,
+                    durationSeconds: finalDuration,
                     incorrectTopics: currentState.incorrectAnswers.map(i => i.question)
                 }),
-                lastScore: currentState.score
+                lastScore: currentState.score,
+                currentSession: deleteField() // Clear saved session
             });
 
             // 2. Add to Global Leaderboard
@@ -374,14 +425,34 @@ async function gameOver() {
                 userId: currentUser.uid,
                 displayName: currentUser.displayName || currentUser.email.split('@')[0], // Use email prefix if no name
                 score: currentState.score,
-                date: Timestamp.now(),
-                durationSeconds: durationSeconds
+                date: endTime,
+                durationSeconds: finalDuration
             });
 
             console.log("Score saved to history and leaderboard!");
         } catch (e) {
             console.error("Error saving score:", e);
         }
+    }
+}
+
+async function saveProgress() {
+    if (!currentUser) return;
+    const userRef = doc(db, "users", currentUser.uid);
+    try {
+        await updateDoc(userRef, {
+            currentSession: {
+                level: currentState.currentLevelIndex,
+                score: currentState.score,
+                questionIndex: currentState.currentQuestionIndex, // Save current index
+                incorrectAnswers: currentState.incorrectAnswers,
+                startTime: currentState.originalStartTime || Timestamp.now(),
+                savedAt: Timestamp.now()
+            }
+        });
+        console.log("Progress saved.");
+    } catch (e) {
+        console.error("Error saving progress:", e);
     }
 }
 
