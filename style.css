@@ -137,3 +137,9 @@ h1 {
 .hidden {
     display: none !important;
 }
+
+.active-tab {
+    background: var(--secondary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}

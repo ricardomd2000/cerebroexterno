@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cerebro Externo & Irrigación Arcade</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
     <h1>Cerebro Externo & Irrigación Arcade</h1>
@@ -16,18 +18,57 @@
       <p>Pon a prueba tus conocimientos sobre la anatomía del cerebro externo y su irrigación.</p>
       <p>3 Niveles de dificultad:</p>
       <ul style="text-align: left; list-style: none;">
-        <li>1. Identificación de Estructuras</li>
-        <li>2. Funciones Corticales</li>
-        <li>3. Territorios Vasculares</li>
-      </ul>
-      <button id="start-btn">INSERT COIN TO START</button>
+
+        <div id="user-profile" style="margin-bottom: 20px;">
+          <!-- Logged Out State -->
+          <div id="auth-forms">
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 10px;">
+              <button id="show-login-btn" class="active-tab">Iniciar Sesión</button>
+              <button id="show-register-btn">Registrarse</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form">
+              <input type="email" id="login-email" placeholder="Correo electrónico"
+                style="padding: 8px; margin: 5px; width: 200px;">
+              <input type="password" id="login-password" placeholder="Contraseña"
+                style="padding: 8px; margin: 5px; width: 200px;">
+              <br>
+              <button id="perform-login-btn" style="background: var(--secondary-color); color: black;">Entrar</button>
+            </div>
+
+            <!-- Register Form (Hidden by default) -->
+            <div id="register-form" class="hidden">
+              <input type="text" id="reg-name" placeholder="Tu Nombre Completo"
+                style="padding: 8px; margin: 5px; width: 200px;">
+              <input type="email" id="reg-email" placeholder="Correo electrónico"
+                style="padding: 8px; margin: 5px; width: 200px;">
+              <input type="password" id="reg-password" placeholder="Contraseña (min 6 chars)"
+                style="padding: 8px; margin: 5px; width: 200px;">
+              <br>
+              <button id="perform-register-btn"
+                style="background: var(--primary-color); color: white; border-color: var(--primary-color);">Crear
+                Cuenta</button>
+            </div>
+            <p id="auth-error" style="color: red; font-size: 0.8rem; height: 20px;"></p>
+          </div>
+
+          <!-- Logged In State -->
+          <div id="logged-in-view" class="hidden">
+            <p id="user-name" style="color: var(--accent-color); font-size: 1.2rem;">Hola, Estudiante</p>
+            <button id="logout-btn" style="font-size: 0.8rem; padding: 5px 10px;">Cerrar Sesión</button>
+          </div>
+        </div>
+
+        <button id="start-btn" disabled>INSERT COIN TO START</button>
+        <p style="font-size: 0.8rem; color: #888;">(Debes iniciar sesión para guardar tu progreso)</p>
     </div>
 
     <!-- Game Screen -->
     <div id="game-screen" class="game-container hidden">
       <h2 id="level-title">Nivel 1</h2>
       <p id="level-description">Descripción del nivel</p>
-      
+
       <div class="stats-bar">
         <span id="score-display">Score: 0</span>
         <span id="question-counter">Question: 1 / 10</span>
@@ -53,6 +94,8 @@
   </div>
 
   <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
+
 </html>
