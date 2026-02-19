@@ -60,12 +60,10 @@ const leaderboardBtn = document.getElementById('leaderboard-btn');
 const leaderboardScreen = document.getElementById('leaderboard-screen');
 const closeLeaderboardBtn = document.getElementById('close-leaderboard-btn');
 const leaderboardList = document.getElementById('leaderboard-list');
-const seedBtn = document.getElementById('seed-btn');
 // menuScreen is already defined above
 
 // Event Listeners
 startBtn.addEventListener('click', startGame);
-if (seedBtn) seedBtn.addEventListener('click', seedLeaderboard);
 
 restartBtn.addEventListener('click', () => {
     currentState.gameState = 'MENU';
@@ -421,35 +419,6 @@ async function showLeaderboard() {
 
 function restartGame() {
     startGame();
-}
-
-async function seedLeaderboard() {
-    if (!confirm("¿Seguro que quieres borrar/añadir datos de prueba a la tabla?")) return;
-
-    const fakeScores = [
-        { name: "Dr. Strange", score: 2500, seconds: 120 },
-        { name: "House M.D.", score: 2100, seconds: 150 },
-        { name: "Greys Anatomy", score: 1800, seconds: 200 },
-        { name: "Estudiante Med", score: 1200, seconds: 300 },
-        { name: "Novato", score: 500, seconds: 400 }
-    ];
-
-    try {
-        for (let fake of fakeScores) {
-            await addDoc(collection(db, "scores"), {
-                userId: "test_user_" + Math.floor(Math.random() * 1000),
-                displayName: fake.name,
-                score: fake.score,
-                date: Timestamp.now(),
-                durationSeconds: fake.seconds
-            });
-        }
-        alert("¡Datos de prueba añadidos! Revisa la tabla.");
-        showLeaderboard();
-    } catch (e) {
-        console.error("Error seeding:", e);
-        alert("Error: " + e.message);
-    }
 }
 
 function updateScreen() {
