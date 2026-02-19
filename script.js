@@ -6,7 +6,10 @@ let currentState = {
     currentLevelIndex: 0,
     currentQuestionIndex: 0,
     score: 0,
-    shuffledOptions: []
+    shuffledOptions: [],
+    startTime: null,
+    timerInterval: null,
+    incorrectAnswers: []
 };
 
 let currentUser = null;
@@ -49,6 +52,8 @@ const optionsContainer = document.getElementById('options-container');
 
 const finalScoreSpan = document.getElementById('final-score');
 const finalMessage = document.getElementById('final-message');
+const timerDisplay = document.getElementById('timer-display');
+const feedbackContainer = document.getElementById('feedback-container');
 
 // Event Listeners
 startBtn.addEventListener('click', startGame);
@@ -196,6 +201,9 @@ function startGame() {
     currentState.gameState = 'PLAYING';
     currentState.currentLevelIndex = 0;
     currentState.score = 0;
+    currentState.incorrectAnswers = [];
+    currentState.startTime = Date.now();
+    startTimer();
     startLevel(0);
     updateScreen();
 }
@@ -224,6 +232,16 @@ function loadQuestion() {
     renderOptions(options, question.correctAnswer);
 }
 
+function startTimer() {
+    if (currentState.timerInterval) clearInterval(currentState.timerInterval);
+    currentState.timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - currentState.startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+        const seconds = (elapsed % 60).toString().padStart(2, '0');
+        timerDisplay.textContent = `Tiempo: ${minutes}:${seconds}`;
+    }, 1000);
+}
+
 function renderOptions(options, correctAnswer) {
     optionsContainer.innerHTML = '';
     options.forEach(option => {
@@ -246,6 +264,11 @@ function handleAnswer(selectedOption, correctAnswer, btnElement) {
         currentState.score += 100;
     } else {
         btnElement.classList.add('incorrect');
+        currentState.incorrectAnswers.push({
+            question: window.GAME_LEVELS[currentState.currentLevelIndex].questions[currentState.currentQuestionIndex].correctAnswer,
+            userAnswer: selectedOption
+        });
+
         allButtons.forEach(b => {
             if (b.textContent === correctAnswer) {
                 b.classList.add('correct');
@@ -279,9 +302,32 @@ function nextQuestion() {
 
 async function gameOver() {
     currentState.gameState = 'GAME_OVER';
+    clearInterval(currentState.timerInterval);
     updateScreen();
 
+    const endTime = Date.now();
+    const durationSeconds = Math.floor((endTime - currentState.startTime) / 1000);
+    const minutes = Math.floor(durationSeconds / 60);
+    const seconds = durationSeconds % 60;
+    const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
     finalScoreSpan.textContent = currentState.score;
+
+    let feedbackHTML = `<strong>Tiempo Total:</strong> ${timeString}<br><br>`;
+    feedbackHTML += `<strong>Jugador:</strong> ${currentUser ? (currentUser.displayName || currentUser.email) : 'Invitado'}<br><br>`;
+
+    if (currentState.incorrectAnswers.length > 0) {
+        feedbackHTML += `<strong>Temas a reforzar:</strong><ul style="margin-top:5px; padding-left: 20px;">`;
+        currentState.incorrectAnswers.forEach(item => {
+            feedbackHTML += `<li>${item.question}</li>`; // Showing the correct structure name as the topic
+        });
+        feedbackHTML += `</ul>`;
+    } else {
+        feedbackHTML += `<strong>¡Perfecto! No tuviste errores.</strong>`;
+    }
+
+    feedbackContainer.innerHTML = feedbackHTML;
+
     if (currentState.score > 2000) {
         finalMessage.textContent = "¡Excelente! Eres un neuroanatomista experto.";
     } else if (currentState.score > 1000) {
@@ -298,7 +344,9 @@ async function gameOver() {
                 gameHistory: arrayUnion({
                     score: currentState.score,
                     date: Timestamp.now(),
-                    completed: true
+                    completed: true,
+                    durationSeconds: durationSeconds,
+                    incorrectTopics: currentState.incorrectAnswers.map(i => i.question)
                 }),
                 // Simplistic high score update
                 lastScore: currentState.score

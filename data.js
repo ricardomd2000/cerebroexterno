@@ -129,7 +129,7 @@ window.GAME_LEVELS = [
                 id: "l1_21",
                 image: "assets/laberintica.jpg",
                 correctAnswer: "Arteria Laberíntica",
-                distractors: ["Arteria Cerebelosa Anteroinferior", "Arteria Pontina", "Arteria Auditiva Interna"]
+                distractors: ["Arteria Cerebelosa Anteroinferior", "Arteria Pontina", "Arteria Cerebelosa Superior"]
             },
             {
                 id: "l1_22",
@@ -262,50 +262,50 @@ window.GAME_LEVELS = [
             {
                 id: "l3_1",
                 image: "assets/arteria_cerebral_media.jpg",
-                correctAnswer: "Irriga la cara lateral de los hemisferios (Áreas motoras y sensitivas de cara y brazo, Lenguaje)",
-                distractors: ["Irriga la cara medial de los hemisferios (Pierna y pie)", "Irriga el lóbulo occipital (Visión)", "Irriga el cerebelo y troncoencefalo"]
+                correctAnswer: "Cara lateral de hemisferios (Motor/Sensitivo cabeza-brazo, Lenguaje)",
+                distractors: ["Cara medial de hemisferios (Motor/Sensitivo pierna)", "Lóbulo occipital (Visión)", "Cerebelo y troncoencefalo"]
             },
             {
                 id: "l3_2",
                 image: "assets/arteria_cerebral_anterio.jpg",
-                correctAnswer: "Irriga la cara medial de los hemisferios (Áreas motoras y sensitivas de pierna y pie)",
-                distractors: ["Irriga la cara lateral de los hemisferios (Cara y mano)", "Irriga el lóbulo temporal inferior", "Irriga los ganglios basales exclusivamente"]
+                correctAnswer: "Cara medial de hemisferios (Motor/Sensitivo pierna)",
+                distractors: ["Cara lateral de hemisferios (Motor/Sensitivo cabeza-brazo)", "Lóbulo temporal inferior", "Ganglios basales exclusivamente"]
             },
             {
                 id: "l3_3",
                 image: "assets/arteria_cerebral_posterior.jpg",
-                correctAnswer: "Irriga el lóbulo occipital (Corteza visual) y parte inferior del temporal",
-                distractors: ["Irriga el lóbulo frontal (Área motora)", "Irriga el lóbulo parietal (Área sensitiva)", "Irriga el área de Broca"]
+                correctAnswer: "Lóbulo occipital (Visión) y temporal inferior",
+                distractors: ["Lóbulo frontal (Motor)", "Lóbulo parietal (Sensitivo)", "Área de Broca (Lenguaje)"]
             },
             {
                 id: "l3_4",
                 image: "assets/arteria_cerebelosa_posteroinferior.jpg",
-                correctAnswer: "Irriga la parte posterior e inferior del cerebelo y bulbo raquídeo lateral (S. Wallenberg)",
-                distractors: ["Irriga el puente y mesencéfalo", "Irriga la corteza visual", "Irriga el lóbulo frontal"]
+                correctAnswer: "Cerebelo posteroinferior y bulbo lateral (S. Wallenberg)",
+                distractors: ["Puente y mesencéfalo", "Corteza visual", "Lóbulo frontal medial"]
             },
             {
                 id: "l3_5",
                 image: "assets/arteria_cerebelosa_superior.jpg",
-                correctAnswer: "Irriga la superficie superior del cerebelo, mesencéfalo y puente superior",
-                distractors: ["Irriga el bulbo raquídeo", "Irriga la médula espinal", "Irriga el lóbulo temporal"]
+                correctAnswer: "Cerebelo superior, mesencéfalo y puente superior",
+                distractors: ["Bulbo raquídeo", "Médula espinal", "Lóbulo temporal"]
             },
             {
                 id: "l3_6",
                 image: "assets/espinal_anterior.jpg",
-                correctAnswer: "Irriga los 2/3 anteriores de la médula espinal (Vías motoras y espinotalámicas)",
-                distractors: ["Irriga el 1/3 posterior de la médula (Cordones posteriores)", "Irriga el cerebelo", "Irriga el tronco encefálico dorsal"]
+                correctAnswer: "2/3 anteriores de médula espinal (Motor/Dolor-Temp)",
+                distractors: ["1/3 posterior de médula (Tacto/Propiocepción)", "Cerebelo", "Tronco encefálico dorsal"]
             },
             {
                 id: "l3_7",
                 image: "assets/arteria_comunicante_anterior.jpg",
-                correctAnswer: "Conecta las dos arterias cerebrales anteriores (Sitio común de aneurismas)",
-                distractors: ["Conecta la carótida interna con la cerebral posterior", "Conecta las arterias vertebrales", "Conecta la cerebral media con la posterior"]
+                correctAnswer: "Conecta las dos arterias cerebrales anteriores",
+                distractors: ["Conecta carótida interna con cerebral posterior", "Conecta arterias vertebrales", "Conecta cerebral media con posterior"]
             },
             {
                 id: "l3_8",
                 image: "assets/arteria_comunicante_posterior.jpg",
-                correctAnswer: "Conecta la arteria carótida interna con la arteria cerebral posterior",
-                distractors: ["Conecta las dos arterias cerebrales anteriores", "Conecta la basilar con la vertebral", "Conecta la cerebral media con la anterior"]
+                correctAnswer: "Conecta carótida interna con cerebral posterior",
+                distractors: ["Conecta las dos cerebrales anteriores", "Conecta basilar con vertebral", "Conecta cerebral media con anterior"]
             }
         ]
     }
