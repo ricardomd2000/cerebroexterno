@@ -233,15 +233,14 @@ async function startGame() { // Made async to use await
             // We can't perfectly restore the exact timer second without more complex logic,
             // but we can ensure the TOTAL duration at the end is correct by keeping the originalStartTime.
             // For the UI timer, we'll just continue counting from where they left off (or approximated).
-            currentState.visualStartTime = Date.now(); // Reset visual timer for current question/session
+            currentState.startTime = Date.now(); // Reset visual timer for current question/session
 
             // Store the ORIGINAL start time in a separate property to calculate total duration at the end
             currentState.originalStartTime = session.startTime;
 
             startTimer();
             updateScreen();
-            startLevel(currentState.currentLevelIndex); // Load the level
-            loadQuestion(); // Load the specific question within the level
+            startLevel(currentState.currentLevelIndex, currentState.currentQuestionIndex); // Load the level and Question
             return; // Exit after resuming
         } else {
             // Discard saved session
@@ -263,9 +262,9 @@ async function startGame() { // Made async to use await
     updateScreen();
 }
 
-function startLevel(levelIndex) {
+function startLevel(levelIndex, startIndex = 0) {
     currentState.currentLevelIndex = levelIndex;
-    currentState.currentQuestionIndex = 0;
+    currentState.currentQuestionIndex = startIndex;
     loadQuestion();
 }
 
