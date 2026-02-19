@@ -1,4 +1,4 @@
-import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, signInWithPopup, googleProvider, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc } from "./firebase-config.js";
+import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, signInWithPopup, googleProvider, doc, setDoc, updateDoc, arrayUnion, Timestamp, getDoc, addDoc, collection, getDocs, limit, orderBy, query } from "./firebase-config.js";
 
 // Game State
 let currentState = {
@@ -55,10 +55,26 @@ const finalMessage = document.getElementById('final-message');
 const timerDisplay = document.getElementById('timer-display');
 const feedbackContainer = document.getElementById('feedback-container');
 
+// Leaderboard Elements
+const leaderboardBtn = document.getElementById('leaderboard-btn');
+const leaderboardScreen = document.getElementById('leaderboard-screen');
+const closeLeaderboardBtn = document.getElementById('close-leaderboard-btn');
+const leaderboardList = document.getElementById('leaderboard-list');
+// menuScreen is already defined above
+
 // Event Listeners
 startBtn.addEventListener('click', startGame);
-restartBtn.addEventListener('click', restartGame);
+restartBtn.addEventListener('click', () => {
+    currentState.gameState = 'MENU';
+    updateScreen();
+});
 
+// Leaderboard Listeners
+leaderboardBtn.addEventListener('click', showLeaderboard);
+closeLeaderboardBtn.addEventListener('click', () => {
+    leaderboardScreen.classList.add('hidden');
+    menuScreen.classList.remove('hidden');
+});
 // Auth Event Listeners
 showLoginBtn.addEventListener('click', () => toggleAuthForm('login'));
 showRegisterBtn.addEventListener('click', () => toggleAuthForm('register'));
@@ -340,6 +356,7 @@ async function gameOver() {
     if (currentUser) {
         const userRef = doc(db, "users", currentUser.uid);
         try {
+            // 1. Update User History
             await updateDoc(userRef, {
                 gameHistory: arrayUnion({
                     score: currentState.score,
@@ -348,13 +365,55 @@ async function gameOver() {
                     durationSeconds: durationSeconds,
                     incorrectTopics: currentState.incorrectAnswers.map(i => i.question)
                 }),
-                // Simplistic high score update
                 lastScore: currentState.score
             });
-            console.log("Score saved!");
+
+            // 2. Add to Global Leaderboard
+            await addDoc(collection(db, "scores"), {
+                userId: currentUser.uid,
+                displayName: currentUser.displayName || currentUser.email.split('@')[0], // Use email prefix if no name
+                score: currentState.score,
+                date: Timestamp.now(),
+                durationSeconds: durationSeconds
+            });
+
+            console.log("Score saved to history and leaderboard!");
         } catch (e) {
             console.error("Error saving score:", e);
         }
+    }
+}
+
+// Leaderboard Functions
+async function showLeaderboard() {
+    menuScreen.classList.add('hidden');
+    leaderboardScreen.classList.remove('hidden');
+    leaderboardList.innerHTML = '<p>Cargando puntuaciones...</p>';
+
+    try {
+        const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            leaderboardList.innerHTML = '<p>Aún no hay puntuaciones registradas.</p>';
+            return;
+        }
+
+        let html = '<ol style="text-align: left; padding-left: 20px;">';
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const date = data.date ? new Date(data.date.seconds * 1000).toLocaleDateString() : '';
+            html += `<li style="margin-bottom: 8px;">
+                <strong>${data.displayName}</strong>: ${data.score} pts 
+                <span style="font-size: 0.8em; color: #ccc;">(${date})</span>
+            </li>`;
+        });
+        html += '</ol>';
+        leaderboardList.innerHTML = html;
+
+    } catch (error) {
+        console.error("Error loading leaderboard:", error);
+        leaderboardList.innerHTML = `<p>Error cargando: ${error.message}</p>`;
     }
 }
 

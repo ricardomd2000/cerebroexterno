@@ -66,11 +66,30 @@
             <button id="logout-btn" style="font-size: 0.8rem; padding: 5px 10px;">Cerrar Sesión</button>
           </div>
         </div>
+      </ul>
+      <p>Inicia sesión para guardar tu progreso</p>
 
+      <div id="auth-forms">
+        <!-- Auth forms injected here by script.js -->
+      </div>
+
+      <div class="menu-buttons">
         <button id="start-btn" disabled>INSERT COIN TO START</button>
-        <p style="font-size: 0.8rem; color: #888;">(Debes iniciar sesión para guardar tu progreso)</p>
+        <button id="leaderboard-btn" class="secondary-btn" style="margin-top: 10px; background: #444;">🏆 Tabla de
+          Líderes</button>
+      </div>
+      <p id="auth-error" class="error-message"></p>
     </div>
 
+    <!-- Leaderboard Screen -->
+    <div id="leaderboard-screen" class="card hidden">
+      <h2>🏆 Mejores Neuroanatomistas</h2>
+      <div id="leaderboard-list">
+        <!-- Scores will be loaded here -->
+        <p>Cargando puntuaciones...</p>
+      </div>
+      <button id="close-leaderboard-btn" style="margin-top: 20px;">Cerrar</button>
+    </div>
     <!-- Game Screen -->
     <div id="game-screen" class="game-container hidden">
       <h2 id="level-title">Nivel 1</h2>

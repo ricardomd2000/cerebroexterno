@@ -6,6 +6,11 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
+    match /scores/{scoreId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+    }
+    
     // Bloquear acceso a todo lo demás por defecto
     match /{document=**} {
       allow read, write: if false;
