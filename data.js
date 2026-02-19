@@ -123,7 +123,7 @@ window.GAME_LEVELS = [
                 id: "l1_20",
                 image: "assets/hipocampo.jpg",
                 correctAnswer: "Hipocampo",
-                distractors: ["Amígdala", "Giro Parahipocampal", "Uncus"]
+                distractors: ["Amígdala", "Giro Parahipocampal", "Fórnix"]
             },
             {
                 id: "l1_21",
@@ -196,7 +196,7 @@ window.GAME_LEVELS = [
                 id: "l2_1",
                 image: "assets/giro precentral.jpg",
                 correctAnswer: "Control Motor Voluntario (Corteza Motora Primaria)",
-                distractors: ["Sensibilidad Somática (Tacto, Dolor)", "Planificación Motora (Área Premotora)", "Procesamiento Visual"]
+                distractors: ["Sensibilidad Somática", "Planificación Motora", "Procesamiento Visual"]
             },
             {
                 id: "l2_2",
@@ -208,13 +208,13 @@ window.GAME_LEVELS = [
                 id: "l2_3",
                 image: "assets/giro temporal superior.jpg",
                 correctAnswer: "Audición y Comprensión del Lenguaje (Wernicke)",
-                distractors: ["Producción del Lenguaje (Broca)", "Reconocimiento Facial", "Memoria Episódica"]
+                distractors: ["Producción del Lenguaje", "Reconocimiento Facial", "Memoria Episódica"]
             },
             {
                 id: "l2_4",
                 image: "assets/porcion triangular.jpg",
                 correctAnswer: "Producción del Lenguaje (Área de Broca)",
-                distractors: ["Comprensión del Lenguaje (Wernicke)", "Control Motor de la Mano", "Toma de Decisiones"]
+                distractors: ["Comprensión del Lenguaje", "Control Motor de la Mano", "Toma de Decisiones"]
             },
             {
                 id: "l2_5",
@@ -232,7 +232,7 @@ window.GAME_LEVELS = [
                 id: "l2_7",
                 image: "assets/hipocampo.jpg",
                 correctAnswer: "Formación de Nuevos Recuerdos (Memoria Episódica)",
-                distractors: ["Regulación Emocional (Miedo)", "Control Motor Fino", "Procesamiento Olfativo"]
+                distractors: ["Regulación Emocional", "Control Motor Fino", "Procesamiento Olfativo"]
             },
             {
                 id: "l2_8",
@@ -263,19 +263,19 @@ window.GAME_LEVELS = [
                 id: "l3_1",
                 image: "assets/arteria_cerebral_media.jpg",
                 correctAnswer: "Cara lateral de hemisferios (Motor/Sensitivo cabeza-brazo, Lenguaje)",
-                distractors: ["Cara medial de hemisferios (Motor/Sensitivo pierna)", "Lóbulo occipital (Visión)", "Cerebelo y troncoencefalo"]
+                distractors: ["Cara medial de hemisferios", "Lóbulo occipital", "Cerebelo y troncoencefalo"]
             },
             {
                 id: "l3_2",
                 image: "assets/arteria_cerebral_anterio.jpg",
                 correctAnswer: "Cara medial de hemisferios (Motor/Sensitivo pierna)",
-                distractors: ["Cara lateral de hemisferios (Motor/Sensitivo cabeza-brazo)", "Lóbulo temporal inferior", "Ganglios basales exclusivamente"]
+                distractors: ["Cara lateral de hemisferios", "Lóbulo temporal inferior", "Ganglios basales exclusivamente"]
             },
             {
                 id: "l3_3",
                 image: "assets/arteria_cerebral_posterior.jpg",
                 correctAnswer: "Lóbulo occipital (Visión) y temporal inferior",
-                distractors: ["Lóbulo frontal (Motor)", "Lóbulo parietal (Sensitivo)", "Área de Broca (Lenguaje)"]
+                distractors: ["Lóbulo frontal", "Lóbulo parietal", "Área de Broca"]
             },
             {
                 id: "l3_4",
@@ -293,7 +293,7 @@ window.GAME_LEVELS = [
                 id: "l3_6",
                 image: "assets/espinal_anterior.jpg",
                 correctAnswer: "2/3 anteriores de médula espinal (Motor/Dolor-Temp)",
-                distractors: ["1/3 posterior de médula (Tacto/Propiocepción)", "Cerebelo", "Tronco encefálico dorsal"]
+                distractors: ["1/3 posterior de médula", "Cerebelo", "Tronco encefálico dorsal"]
             },
             {
                 id: "l3_7",
